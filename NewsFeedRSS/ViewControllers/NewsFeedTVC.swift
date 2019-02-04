@@ -8,23 +8,24 @@
 
 import UIKit
 
-//https://www.vesti.ru/vesti.rss
-
 class NewsFeedTVC: UITableViewController, XMLParserDelegate {
 
     //MARK: - Properties
     let identifire = "MyCell"
     var newsFeeds: [NewsFeedData] = []
+    var filteredNewsFeed: [NewsFeedData] = []
+    var newCategories: [String] = []
     var elementName: String = String()
     var newsTitle = String()
     var newsPubDate = String()
     var newsImage: String?
     var newsFullText = String()
+    var newsCategory = String()
+    var currentCategory = "Все категории"
     
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         parsingNewsFeedXML()
     }
 
@@ -39,16 +40,27 @@ class NewsFeedTVC: UITableViewController, XMLParserDelegate {
     //MARK: - Methods
     //MARK: - TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsFeeds.count
+        if currentCategory == "Все категории" {
+            return newsFeeds.count
+        }else {
+            self.filteredNewsFeed = newsFeeds.filter{ $0.newsCategory == self.currentCategory }
+            return filteredNewsFeed.count
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath) as! NewsFeedTVCell
         
-        let news = newsFeeds[indexPath.row]
-  
-        cell.titleLabel.text = news.newsTitle
-        cell.pudDateLabel.text = news.newsPubDate
+        var news: NewsFeedData? = nil
+        
+        if currentCategory == "Все категории" {
+            news = newsFeeds[indexPath.row]
+        }else {
+            news = filteredNewsFeed[indexPath.row]
+        }
+        cell.titleLabel.text = news?.newsTitle
+        cell.pudDateLabel.text = news?.newsPubDate
         
         return cell
     }
@@ -72,34 +84,24 @@ class NewsFeedTVC: UITableViewController, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        
-        /*
+ 
         if elementName == "item" {
             newsTitle = String()
             newsFullText = String()
             newsPubDate = String()
             newsImage = String()
+            newsCategory = String()
         } else if elementName == "enclosure" {
             if let urlString = attributeDict["url"] {
-                print(urlString)
-                print("enc details")
                 newsImage? += urlString
-            } else {
-                print("malformed element: enclosure without url attribute")
             }
-        }
-        */
-        
-        if elementName == "item" {
-            newsTitle = String()
-            newsPubDate = String()
         }
         self.elementName = elementName
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let news = NewsFeedData.init(newsTitle: newsTitle, newsPubDate: newsPubDate, newsImage: newsImage, newsFullText: newsFullText)
+            let news = NewsFeedData.init(newsTitle: newsTitle, newsPubDate: newsPubDate, newsImage: newsImage, newsFullText: newsFullText, newsCategory: newsCategory)
             newsFeeds.append(news)
         }
     }
@@ -117,19 +119,41 @@ class NewsFeedTVC: UITableViewController, XMLParserDelegate {
                 newsImage? += data
             case "yandex:full-text":
                 newsFullText += data
+            case "category":
+                newsCategory += data
+                newCategories.append(newsCategory)
             default:
                 break
             }
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let fullNewsFeed = segue.destination as? FullNewsFeedVC
-        
-        if let indexPath = tableView.indexPathForSelectedRow {
-            fullNewsFeed?.choiseNewsFeed = newsFeeds[indexPath.item]
+        if let nextVC = segue.destination as? FullNewsFeedVC {
+            var news: [NewsFeedData] = []
+            
+            if currentCategory == "Все категории" {
+                news = newsFeeds
+            }else {
+                news = filteredNewsFeed
+            }
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                nextVC.choiseNewsFeed = news[indexPath.item]
+            }
+        }else if let nextVC = segue.destination as? FiltersTVC {
+            var unicCategories = Array(Set(self.newCategories)).sorted{ $0 < $1 }
+            unicCategories.insert("Все категории", at: 0)
+            nextVC.categories = unicCategories
         }
+        
     }
+    
+    @IBAction func newsFeedFiltersSegue(with segue: UIStoryboardSegue) {
+        guard let sourceVC = segue.source as? FiltersTVC else { return }
+        self.currentCategory = sourceVC.category
+        self.tableView.reloadData()
+    }
+    
 }

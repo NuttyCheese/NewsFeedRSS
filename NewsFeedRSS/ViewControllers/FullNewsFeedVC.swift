@@ -27,7 +27,6 @@ class FullNewsFeedVC: UIViewController {
     var elementName: String = String()
     var choiseNewsFeed: NewsFeedData?
     
-    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +39,8 @@ class FullNewsFeedVC: UIViewController {
         self.fullPubDateLabel.font = UIFont(name: "Times New Roman", size: 15)
         self.fullTitleLabel.font = UIFont(name: "Times New Roman", size: 22)
         self.fullTextViewState.font = UIFont(name: "Times New Roman", size: 16)
-//        self.fullImageView.image = UIImage(named: "news")
         
-        
+        //output on display
         self.fullTitleLabel.text = self.choiseNewsFeed!.newsTitle
         self.fullPubDateLabel.text = self.choiseNewsFeed!.newsPubDate
         self.imageURL = self.choiseNewsFeed!.newsImage ?? "nil"

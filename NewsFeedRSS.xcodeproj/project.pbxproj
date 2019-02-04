@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89584CF522084A0300AE479B /* FiltersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89584CF422084A0300AE479B /* FiltersTVC.swift */; };
 		89F4C01022047D0E00128D8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C00F22047D0E00128D8B /* AppDelegate.swift */; };
 		89F4C01522047D0E00128D8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F4C01322047D0E00128D8B /* Main.storyboard */; };
 		89F4C01722047D1100128D8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F4C01622047D1100128D8B /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		3447DA4BEDE106E92D9B3E5F /* Pods-NewsFeedRSS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedRSS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedRSS/Pods-NewsFeedRSS.debug.xcconfig"; sourceTree = "<group>"; };
 		4C7DE17CE3F2C8654D0C5096 /* Pods-NewsFeedRSS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedRSS.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedRSS/Pods-NewsFeedRSS.release.xcconfig"; sourceTree = "<group>"; };
+		89584CF422084A0300AE479B /* FiltersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersTVC.swift; sourceTree = "<group>"; };
 		89F4C00C22047D0E00128D8B /* NewsFeedRSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeedRSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F4C00F22047D0E00128D8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89F4C01422047D0E00128D8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				89F4C02822047EA800128D8B /* Cell */,
 				89F4C02322047D7300128D8B /* NewsFeedTVC.swift */,
 				89F4C02522047DA500128D8B /* FullNewsFeedVC.swift */,
+				89584CF422084A0300AE479B /* FiltersTVC.swift */,
 				89F4C02C2205A24A00128D8B /* NewsFeedData.swift */,
 			);
 			path = ViewControllers;
@@ -248,6 +251,7 @@
 				89F4C02622047DA500128D8B /* FullNewsFeedVC.swift in Sources */,
 				89F4C02222047D5200128D8B /* NewsFeedTVCell.swift in Sources */,
 				89F4C02D2205A24A00128D8B /* NewsFeedData.swift in Sources */,
+				89584CF522084A0300AE479B /* FiltersTVC.swift in Sources */,
 				89F4C02422047D7300128D8B /* NewsFeedTVC.swift in Sources */,
 				89F4C01022047D0E00128D8B /* AppDelegate.swift in Sources */,
 			);

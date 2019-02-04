@@ -31,5 +31,4 @@ class NewsFeedTVCell: UITableViewCell {
         self.titleLabel.font = UIFont(name: "Times New Roman", size: 22)
         self.pudDateLabel.font = UIFont(name: "Times New Roman", size: 15)
     }
-    
 }

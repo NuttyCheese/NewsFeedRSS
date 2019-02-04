@@ -13,4 +13,5 @@ struct NewsFeedData {
     var newsPubDate: String
     var newsImage: String?
     var newsFullText: String
+    var newsCategory: String
 }
